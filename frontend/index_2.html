@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<!--   <meta content="IE=edge" http-equiv="X-UA-Compatible"> -->
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="" name="description">
+<meta content="" name="author">
+<link href="ico/favicon.ico" rel="shortcut icon">
+
+<title>Dumpling Search Engine </title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="css/bootstrap.css">
+<!-- Bootstrap theme -->
+<!--  <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
+
+<!-- Custom styles for this template -->
+
+<link rel="stylesheet" href="assets/jie/jie.css">
+<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dripicon.css">
+<link rel="stylesheet" href="css/typicons.css" />
+<link rel="stylesheet" href="css/font-awesome.css" />
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="js/tip/tooltipster.css">
+<link rel="stylesheet" type="text/css" href="js/vegas/jquery.vegas.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/number-progress-bar/number-pb.css">
+<!-- pace loader -->
+<script src="js/pace/pace.js"></script>
+<link href="js/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" />
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript' src='js/bootstrap.js'></script>
+<script type='text/javascript' src="assets/jie/jie.js"></script>
+
+<style>
+.cache-img{
+	display:none;
+}
+#paper-bg {
+	min-height: 900px;
+}
+.news-widget{
+	color:black;
+}
+.news-widget .title {
+	font-size: 15px;
+}
+.news-widget .content{
+	padding-left: 30px;
+font-size: 10px;
+font-weight: 500;
+}
+
+.news-widget .highlight {
+	font-weight: 700;
+}
+
+.interaction-bg {
+	height: 300px;
+	overflow:scroll;
+   	white-space: -moz-pre-wrap; /* Firefox */    
+   	white-space: -pre-wrap;     /* Opera <7 */   
+   	white-space: -o-pre-wrap;   /* Opera 7 */    
+   	word-wrap: break-word;      /* IE */
+}
+
+.bg-red {
+	border-bottom: white solid;
+}
+
+.dark input[type=text] {
+	color: black;
+}
+
+.navbar-form .form-control {
+	width: 600px;
+}
+
+#history_box {
+	height: 100px;
+	border: solid 1px;
+	overflow: scroll;
+}
+
+#history_box .one-query {
+	float: left;
+	padding: 5px 20px;
+	margin: 10px 0px;
+	background-color: #45B6B0;
+	border-radius: 5px;
+	color: white;
+}
+#history_box .search-state {
+	float: left;
+	padding: 5px 10px;
+	margin: 10px 0px;
+	border-radius: 5px;
+	color: #45B6B0;
+	border: solid 1px;
+}
+#history_box .search-state-pre {
+	float: left;
+	margin: 10px 0px;
+	color: #45B6B0;
+}
+
+.result1 {
+	border: solid 1px;
+}
+
+.hidden-full-text {
+	display: none;
+}
+
+.highlight {
+	color: #D24D57;
+	font-weight: 800;
+}
+.author{
+	color:black;
+float: left;
+font-size: 15px;
+margin: 10px 0px;
+}
+.is-relevant {
+	font-size: 15px;
+	float: right;
+	margin: 13px 0px 0px 0px;
+	color: white;
+	background: #ABB7B7;
+	padding: 3px 15px;
+}
+.is-offtopic{
+	font-size: 15px;
+	float: right;
+	margin: 13px 0px 0px 0px;
+	color: white;
+	background: #ABB7B7;
+	padding: 3px 15px;
+	margin-left:2px;
+}
+.clear{
+	float:left;
+	clear:both;
+	width:100%;
+}
+.hidden-rank{
+	display:none;
+}
+
+.google-next-button {
+	padding: 5px 10px;
+	margin: 10px 0px;
+	border-radius: 5px;
+	color: #45B6B0;
+	border: solid 1px;
+	width: 50px;
+	margin-left: 10px;
+	float: left;
+}
+.google-next-button:hover { 
+	color: white;
+    background-color: #45B6B0;
+    cursor: pointer;
+}
+.interaction-log-export-button{
+	padding: 5px 10px;
+	margin: 10px 0px;
+	border-radius: 5px;
+	color: #45B6B0;
+	border: solid 1px;
+	width: 100%;
+	margin: 0px;
+	float: left;
+	text-align: center;
+}
+.interaction-log-export-button:hover { 
+	color: white;
+    background-color: #45B6B0;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body role="document">
+
+<style>
+.jie-overlay {
+	z-index: 1001;
+}
+.jie-overlay-scene {
+	z-index: 1002;
+	background-color:white;
+	padding:15px 30px;
+	text-align: left;
+	height:600px;
+	width:900px;
+	overflow:scroll;
+	color:black;
+	font-size:15px;
+}
+
+</style>
+<script>
+var overlay_title;
+var overlay_detail;
+var overlay_starting_time;
+function updateOverlay(title,detail){
+	overlay_title=title;
+	overlay_detail=detail;
+	overlay_starting_time=Date.now();
+}
+$(function() {
+	$(".jie-overlay").trigger('jie_overlay_hide');
+	
+	$(".jie-overlay").click(function(){
+		addToInteractiveBox(overlay_title,overlay_detail);
+	});
+});
+</script>
+<div class="jie-overlay">
+	<div class="jie-overlay-scene">
+	</div>
+</div>
+
+	<script type="text/javascript">
+	var url='/solr/nyu_ht/';
+	var query_in_url;
+	
+	
+	// post events to database
+	function postEvent(event_name, event_detail){
+		$.ajax
+		({
+		  type: "GET",
+ 		  url:'http://www.pixelanimators.com/dumpling/index.php?r=index/postEvent&event_name='+event_name+'&event_detail='+event_detail
+		});
+	}
+	//Add a new event into interactive box.
+	var i=0;
+	function addToInteractiveBox(title, detail){
+		if (title=='New Query Sent'){
+			postEvent(title,detail);
+		} else if (title=='Dynamic Doc Clicked'){
+			$.ajax
+			({
+			  type: "GET",
+	 		  url:url+'discount?q='+query_in_url+'&wt=json&indent=true&qcm=true&type=click&cid='+detail,
+			  contentType: 'application/javascript',
+			  dataType: 'json',
+			  async: false,
+			  success: function (data){}
+			});
+			detail='Document rank: '+detail; 
+			postEvent(title,detail);
+		} else if (title=='Dynamic Doc Reading End') {
+			detail='Document rank: '+detail+'; ';
+			detail+=' Duration: '+((Date.now()-overlay_starting_time)*1.0/ 1000)*1.0+' sec';
+			postEvent(title,detail);
+		}else if (title=='Static Doc Clicked'){
+			if (current_static_engine=='Google'){
+				detail='From: Google; URL: '+detail;
+			} else {
+				detail='From: Lucene; Document rank: '+detail;
+			}
+			postEvent(title,detail);
+		} else if (title=='Static Doc Reading End') {
+			if (current_static_engine=='Google'){
+				detail='From: Google; URL:'+detail;
+			} else {
+				detail='From: Lucene; Document rank: '+detail;
+			}
+			detail+='; ';
+			detail+=' Duration: '+((Date.now()-overlay_starting_time)*1.0/ 1000)*1.0+' sec';
+			postEvent(title,detail);
+		}else if (title=='Static Relevant Button Clicked'){
+			if (current_static_engine=='Google'){
+				detail='From: Google; URL:'+detail;
+			} else {
+				detail='From: Lucene; Document rank: '+detail;
+			}
+			postEvent(title,detail);
+		} else if (title=='Dynamic Relevant Button Clicked'){
+			$.ajax
+			({
+			  type: "GET",
+	 		  url:url+'discount?q='+query_in_url+'&wt=json&indent=true&qcm=true&type=relevant&cid='+detail,
+			  contentType: 'application/javascript',
+			  dataType: 'json',
+			  async: false,
+			  success: function (data){}
+			});
+			detail="Document rank: "+detail;
+			postEvent(title,detail);
+			
+		} else if (title=='Static Off-topic Button Clicked'){
+			if (current_static_engine=='Google'){
+				detail='From: Google; URL: '+detail;
+			} else {
+				detail='From: Lucene; Document rank: '+detail;
+			}
+			postEvent(title,detail);
+		} else if (title=='Dynamic Off-topic Button Clicked'){
+			detail="Document rank: "+detail;
+			postEvent(title,detail);
+		}
+		i++; 
+		var st='<li class="bg-red">'
+		+'<ul class="list-unstyled jalur-nest">'
+		+'<li>'
+		+title
+		+'</li>'
+		+'<li>'
+		+detail
+		+'</li>'
+		+'</ul>'
+		+'</li>';
+		$("#interaction_box").prepend(st);
+		var h=$("#interaction_box").children().first().height();
+		$("#interaction_box").css('margin-top',-h);
+		$( "#interaction_box" ).animate({"margin-top": "0px"}, 100);
+	}
+	
+	//Get sinppet from a full text, make sure keyword is included.
+	function getSnippet(target, keyword){
+		var snippet_length=600;
+		if (target.length<snippet_length) return target;
+		
+		var keywords=keyword.split(" ");
+		for (var i = 0; i < keywords.length; i++) {
+			keyword=keywords[i];
+			var pos = target.indexOf(keyword);
+			if (pos!=-1){
+				if (pos<=snippet_length-50) {
+					target=target.substring(0, snippet_length);
+				} else {
+					target=target.substring(pos-50, pos-50+snippet_length);
+				}
+				return target;
+			}
+		}
+		
+		// No keyword found
+		target=target.substring(0, snippet_length);
+		return target;
+	}
+	
+	//strip html;
+	function stripHtml(target){
+		var target = target.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, ''); 
+		return target;
+	}
+	
+	//Highlight all the keywords in target string.
+	var highlight_colors = ["#D35400","#663399", "#DB0A5B", "#1F3A93","#96281B","#D2527F","#674172"];
+	function highlight(target, keyword){
+		if (target==undefined){
+			return "";
+		}
+		if (target instanceof Array){
+			target=target[0];
+		}
+		var keywords=keyword.split(" ");
+		for (var i = 0; i < keywords.length; i++) {
+			keyword=keywords[i];
+			reg = new RegExp(keyword, 'gi');
+			target = target.replace(reg, '<span class="highlight" style="color:'+highlight_colors[i%highlight_colors.length]+'">'+keyword+'</span>');
+		}
+		
+		return target;
+	}
+	
+	var search_state="state change";
+	function sendNewQuery(){
+		search($('#search_input').val());
+		var str="";
+		if ( $('#history_box').text().length !=0) {
+			str+="<div class='search-state-pre'><img src='img/state_pre'/></div><div class='search-state'>"+ search_state+ "</div><div class='search-state-pre'><img src='img/state_suc'/></div>";
+		}
+		str+="<div class='one-query'>"+ $('#search_input').val()+ "</div>";
+		$('#history_box').append(str);
+	}
+	// Search button click;
+	$(function(){
+		$('#search_input').keyup(function(e){
+		    if(e.keyCode == 13)
+		    {
+		    	sendNewQuery();
+		    }
+		});
+		$('#search_submit').click(function(){
+			sendNewQuery();
+		});	
+		//clear history
+		$('#clear_history').click(function(){
+			addToInteractiveBox("Clear Clicked", "User clear the search history");
+			$.ajax
+			({
+			  type: "GET",
+	 		  url:url+'discount?q='+query_in_url+'&wt=json&indent=true&qcm=false',
+			  contentType: 'application/javascript',
+			  dataType: 'json',
+			  async: false,
+			  success: function (data){}
+			});
+			$('#history_box').empty();
+		});	
+	});
+	
+	function deleteItemInArray(arr,item){
+		var index = arr.indexOf(item);
+		while (index > -1) {
+		    arr.splice(index, 1);
+		    index = arr.indexOf(item);
+		}
+	}
+	// The relevant results' ranks store here
+	var left_relevant;
+	var right_relevant;
+	var left_offtopic;
+	var right_offtopic;
+	// Refresh relevant button color both in main page and pop page.
+	function refreshRelevantButtonColor(){
+		// Right refresh
+		$('#dynamic_box').find('.hidden-rank').each(function(){
+			if (right_relevant.indexOf($(this).text())!=-1){
+				$(this).parent().parent().find('.is-relevant').each(function(){
+					$(this).css('background-color', '#45B6B0');
+				});
+				$(this).parent().parent().find('.is-offtopic').each(function(){
+					$(this).css('background-color', '#ABB7B7');
+				});
+			} 		
+		});
+		$('#dynamic_box').find('.hidden-rank').each(function(){
+			if (right_offtopic.indexOf($(this).text())!=-1){
+				$(this).parent().parent().find('.is-offtopic').each(function(){
+					$(this).css('background-color', '#45B6B0');
+				});
+				$(this).parent().parent().find('.is-relevant').each(function(){
+					$(this).css('background-color', '#ABB7B7');
+				});
+			}				
+		});
+		
+		// left refresh
+		$('#static_box').find('.hidden-rank').each(function(){
+			if (left_relevant.indexOf($(this).text())!=-1){
+				$(this).parent().parent().parent().parent().find('.is-relevant').each(function(){
+					$(this).css('background-color', '#45B6B0');
+				});
+				$(this).parent().parent().parent().parent().find('.is-offtopic').each(function(){
+					$(this).css('background-color', '#ABB7B7');
+				});
+			}				
+		});
+		$('#static_box').find('.hidden-rank').each(function(){
+			if (left_offtopic.indexOf($(this).text())!=-1){
+				$(this).parent().parent().parent().parent().find('.is-offtopic').each(function(){
+					$(this).css('background-color', '#45B6B0');
+				});
+				$(this).parent().parent().parent().parent().find('.is-relevant').each(function(){
+					$(this).css('background-color', '#ABB7B7');
+				});
+			}				
+		});
+	}
+	
+	function search(query){
+		left_relevant=[];
+		right_relevant=[];
+		left_offtopic=[];
+		right_offtopic=[];
+		
+		query=$.trim(query);
+		addToInteractiveBox('New Query Sent','Keywords:'+query);
+		query_in_url=query.replace(/\s/g,"+");
+		$.ajax
+		({
+		  type: "GET",
+ url:url+'discount?q='+query_in_url+'&wt=json&indent=true&qcm=true',
+		  contentType: 'application/javascript',
+		  dataType: 'json',
+		  async: false,
+		  success: function (data){
+			search_state=data.status;
+			$("#dynamic_box").empty();
+			for (i=0; i<data.response.docs.length; i++){
+				keyword=query;
+			var st='<div class="col-sm-12">'
+					+'<div class="box">'
+					+'<div class="box-body doc">'
+					+'<div class="news-widget">'
+					+'<h2>'
+					+'<div class="is-offtopic"> off-topic'
+					+'<div class="hidden-rank">'
+					+(i+1)
+					+'</div>'
+					+'</div>'
+					+'<div class="is-relevant"> relevant'
+					+'<div class="hidden-rank">'
+					+(i+1)
+					+'</div>'
+					+'</div>'
+					+'</h2>'
+					+'<div class="row">'
+					+'<div class="col-sm-12">'
+					+'<div class="title">'
+					+highlight(data.response.docs[i].title,keyword)
+					+'</div>'
+					+'<div class="content">'
+					+highlight(getSnippet(stripHtml(data.response.docs[i].content[0]),keyword),keyword)
+					+'</div>'
+					+'<div class="hidden-full-text">'
+					+'<div class="clear">'
+					+'<div class="is-offtopic"> off-topic'
+					+'<div class="hidden-rank">'
+					+(i+1)
+					+'</div>'
+					+'</div>'
+					+'<div class="is-relevant"> Is relevant'
+					+'<div class="hidden-rank">'
+					+(i+1)
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+highlight(stripHtml(data.response.docs[i].content[0]),keyword)
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>';
+				$("#dynamic_box").append(st);
+			}
+			// Add user interaction detector.
+			$("#dynamic_box").find('.doc').each(function(){
+				$(this).mouseenter(function(){
+					//addToInteractiveBox('Dynamic Doc Hovered',$(this).find('.title').text());			
+				});
+				$(this).click(function() {
+					addToInteractiveBox("Dynamic Doc Clicked", $(this).find('.hidden-rank').first().text());
+					$(".jie-overlay-scene").empty();
+					var st=$(this).find('.hidden-full-text').html();
+					updateOverlay("Dynamic Doc Reading End", $(this).find('.hidden-rank').first().text());
+					$(".jie-overlay-scene").append(st);
+					//Add relevant function
+					$(".jie-overlay-scene").find('.is-relevant').click(function(event) {
+						addToInteractiveBox('Dynamic Relevant Button Clicked',$(this).find('.hidden-rank').text());
+						right_relevant.push($(this).find('.hidden-rank').text());
+						deleteItemInArray(right_offtopic,$(this).find('.hidden-rank').text());
+						$(this).css('background-color', '#45B6B0');
+						$(this).parent().find('.is-offtopic').css('background-color', '#ABB7B7');
+						refreshRelevantButtonColor();
+						event.stopPropagation();
+					});
+					$(".jie-overlay-scene").find('.is-relevant').mouseenter(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#A2DED0');
+							$(this).css('cursor', 'pointer');
+						}
+					});
+					$(".jie-overlay-scene").find('.is-relevant').mouseout(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#ABB7B7');	
+						}
+						$(this).css('cursor', 'auto');
+					});
+					
+					//Add offtopic function
+					$(".jie-overlay-scene").find('.is-offtopic').click(function(event) {
+						addToInteractiveBox('Dynamic Off-topic Button Clicked',$(this).find('.hidden-rank').text());
+						right_offtopic.push($(this).find('.hidden-rank').text());
+						deleteItemInArray(right_relevant,$(this).find('.hidden-rank').text());
+						$(this).css('background-color', '#45B6B0');
+						$(this).parent().find('.is-relevant').css('background-color', '#ABB7B7');
+						refreshRelevantButtonColor();
+						event.stopPropagation();
+					});
+					$(".jie-overlay-scene").find('.is-offtopic').mouseenter(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#A2DED0');
+							$(this).css('cursor', 'pointer');
+						}
+					});
+					$(".jie-overlay-scene").find('.is-offtopic').mouseout(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#ABB7B7');	
+						}
+						$(this).css('cursor', 'auto');
+					});
+					$(".jie-overlay").trigger('jie_overlay_show');
+				});
+				
+				// Is relevant button, click and hover change color.
+				$(this).find('.is-relevant').click(function(event) {
+					right_relevant.push($(this).find('.hidden-rank').text());
+					deleteItemInArray(right_offtopic,$(this).find('.hidden-rank').text());
+					addToInteractiveBox('Dynamic Relevant Button Clicked',$(this).find('.hidden-rank').text());
+					$(this).css('background-color', '#45B6B0');
+					refreshRelevantButtonColor();
+					event.stopPropagation();
+				});
+				$(this).find('.is-relevant').mouseenter(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#A2DED0');
+						$(this).css('cursor', 'pointer');
+					}
+				});
+				$(this).find('.is-relevant').mouseout(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#ABB7B7');	
+					}
+					$(this).css('cursor', 'auto');
+				});
+				
+				// Off topic button, click and hover change color.
+				$(this).find('.is-offtopic').click(function(event) {
+					right_offtopic.push($(this).find('.hidden-rank').text());
+					deleteItemInArray(right_relevant,$(this).find('.hidden-rank').text());
+					addToInteractiveBox('Dynamic Off-topic Button Clicked',$(this).find('.hidden-rank').text());
+					$(this).css('background-color', '#45B6B0');
+					refreshRelevantButtonColor();
+					event.stopPropagation();
+				});
+				$(this).find('.is-offtopic').mouseenter(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#A2DED0');
+						$(this).css('cursor', 'pointer');
+					}
+				});
+				$(this).find('.is-offtopic').mouseout(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#ABB7B7');	
+					}
+					$(this).css('cursor', 'auto');
+				});
+			});
+		  }
+		});
+		
+		if ($('#staticOption option:selected').text()=='Google'){
+			google_page=0;
+			current_static_engine='Google';
+			getGoogleResult(query);
+		} else {
+			current_static_engine='Lucene';
+			$.ajax
+			({
+			  type: "GET",
+	url:url+'query?q='+query_in_url+'&wt=json&indent=true&qcm=true',
+			  contentType: 'application/javascript',
+			  dataType: 'json',
+			  async: false,
+			  success: function (data){
+				$("#static_box").empty();
+				for (i=0; i<data.response.docs.length; i++){
+					keyword=query;
+					//if (i==0) alert(data.response.docs[i].score);
+					//if (i==0) alert(data.response.docs[i]._version_);
+					
+				var st='<div class="col-sm-12">'
+						+'<div class="box">'
+						+'<div class="box-body doc">'
+						+'<div class="news-widget">'
+						+'<h2>'
+						+'<div class="is-offtopic"> off-topic'
+						+'<div class="hidden-rank">'
+						+(i+1)
+						+'</div>'
+						+'</div>'
+						+'<div class="is-relevant"> relevant'
+						+'<div class="hidden-rank">'
+						+(i+1)
+						+'</div>'
+						+'</div>'
+						+'</h2>'
+						+'<div class="row">'
+						+'<div class="col-sm-12">'
+						+'<div class="title">'
+						+highlight(data.response.docs[i].title,keyword)
+						+'</div>'
+						+'<div class="content">'
+						+highlight(getSnippet(stripHtml(data.response.docs[i].content[0]),keyword),keyword)
+						+'</div>'
+						+'<div class="hidden-full-text">'
+						+'<div class="clear">'
+						+'<div class="is-offtopic"> off-topic'
+						+'<div class="hidden-rank">'
+						+(i+1)
+						+'</div>'
+						+'</div>'
+						+'<div class="is-relevant"> relevant'
+						+'<div class="hidden-rank">'
+						+(i+1)
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+highlight(stripHtml(data.response.docs[i].content[0]),keyword)
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>';
+					$("#static_box").append(st);
+				}
+			  }
+			});
+			// Add user interaction detector.
+			$("#static_box").find('.doc').each(function(){
+				$(this).mouseenter(function(){
+					//addToInteractiveBox('Static Doc Hovered',$(this).find('.title').text());			
+				});
+				$(this).click(function() {
+					addToInteractiveBox("Static Doc Clicked", $(this).find('.hidden-rank').first().text());
+					$(".jie-overlay-scene").empty();
+					var st=$(this).find('.hidden-full-text').html();
+					$(".jie-overlay-scene").append(st);
+					updateOverlay("Static Doc Reading End", $(this).find('.hidden-rank').first().text());
+					
+					//Add relevant function
+					$(".jie-overlay-scene").find('.is-relevant').click(function(event) {
+						addToInteractiveBox('Static Relevant Button Clicked',$(this).find('.hidden-rank').text());
+						left_relevant.push($(this).find('.hidden-rank').text());
+						deleteItemInArray(left_offtopic,$(this).find('.hidden-rank').text());
+						$(this).css('background-color', '#45B6B0');
+						$(this).parent().find('.is-offtopic').css('background-color', '#ABB7B7');
+						refreshRelevantButtonColor();
+						event.stopPropagation();
+					});
+					$(".jie-overlay-scene").find('.is-relevant').mouseenter(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#A2DED0');
+							$(this).css('cursor', 'pointer');
+						}
+					});
+					$(".jie-overlay-scene").find('.is-relevant').mouseout(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#ABB7B7');	
+						}
+						$(this).css('cursor', 'auto');
+					});
+					
+					//Add offtopic function
+					$(".jie-overlay-scene").find('.is-offtopic').click(function(event) {
+						addToInteractiveBox('Static Off-topic Button Clicked',$(this).find('.hidden-rank').text());
+						left_offtopic.push($(this).find('.hidden-rank').text());
+						deleteItemInArray(left_relevant,$(this).find('.hidden-rank').text());
+						$(this).css('background-color', '#45B6B0');
+						$(this).parent().find('.is-relevant').css('background-color', '#ABB7B7');
+						refreshRelevantButtonColor();
+						event.stopPropagation();
+					});
+					$(".jie-overlay-scene").find('.is-offtopic').mouseenter(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#A2DED0');
+							$(this).css('cursor', 'pointer');
+						}
+					});
+					$(".jie-overlay-scene").find('.is-offtopic').mouseout(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#ABB7B7');	
+						}
+						$(this).css('cursor', 'auto');
+					});
+					$(".jie-overlay").trigger('jie_overlay_show');
+				});
+				
+				// Is relevant button, click and hover change color.
+				$(this).find('.is-relevant').click(function(event) {
+					left_relevant.push($(this).find('.hidden-rank').text());
+					deleteItemInArray(left_offtopic,$(this).find('.hidden-rank').text());
+					addToInteractiveBox('Static Relevant Button Clicked',$(this).find('.hidden-rank').text());
+					$(this).css('background-color', '#45B6B0');
+					refreshRelevantButtonColor();
+					event.stopPropagation();
+				});
+				$(this).find('.is-relevant').mouseenter(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#A2DED0');
+						$(this).css('cursor', 'pointer');
+					}
+				});
+				$(this).find('.is-relevant').mouseout(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#ABB7B7');	
+					}
+					$(this).css('cursor', 'auto');
+				});
+				
+				// Off topic button, click and hover change color.
+				$(this).find('.is-offtopic').click(function(event) {
+					left_offtopic.push($(this).find('.hidden-rank').text());
+					deleteItemInArray(left_relevant,$(this).find('.hidden-rank').text());
+					addToInteractiveBox('Static Off-topic Button Clicked',$(this).find('.hidden-rank').text());
+					$(this).css('background-color', '#45B6B0');
+					refreshRelevantButtonColor();
+					event.stopPropagation();
+				});
+				$(this).find('.is-offtopic').mouseenter(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#A2DED0');
+						$(this).css('cursor', 'pointer');
+					}
+				});
+				$(this).find('.is-offtopic').mouseout(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#ABB7B7');	
+					}
+					$(this).css('cursor', 'auto');
+				});
+			});
+		}
+		
+	}
+	/*
+	$(function(){
+	$("#staticOption")
+	  .change(function () {
+		 sendNewQuery();
+	  });
+	});*/
+	
+	var current_static_engine="Lucene";
+	var google_page=0;
+	function getGoogleResult(query){
+		console.log(query);
+		query=$.trim(query);
+		query_in_url=query.replace(/\s/g,"%20");
+		$("#static_box").empty();
+		$.ajax
+		({
+		  type: "GET",
+url:'http://www.pixelanimators.com/dumpling/index.php?r=index/googleResult&q='+query_in_url+'&start='+(google_page*8),
+		  contentType: 'application/javascript',
+		  dataType: 'json',
+		  async: false,
+		  success: function (data){
+			if (data.responseData==null || data.responseData.results==null ||data.responseData.results==0){
+				alert("No result return from Google. Maybe caused by blocking.");
+			}
+			for (i=0; i<data.responseData.results.length; i++){
+				keyword=query;
+				//if (i==0) alert(data.response.docs[i].score);
+				//if (i==0) alert(data.response.docs[i]._version_);
+			var st='<div class="col-sm-12">'
+					+'<div class="box">'
+					+'<div class="box-body doc">'
+					+'<div class="news-widget">'
+					+'<h2>'
+					+'<div class="is-offtopic"> off-topic'
+					+'<div class="hidden-rank">'
+					+data.responseData.results[i].url
+					+'</div>'
+					+'</div>'
+					+'<div class="is-relevant"> Is relevant'
+					+'<div class="hidden-rank">'
+					+data.responseData.results[i].url
+					+'</div>'
+					+'</div>'
+					+'</h2>'
+					+'<div class="row">'
+					+'<div class="col-sm-12">'
+					+'<div class="title">'
+					+highlight(data.responseData.results[i].title,keyword)
+					+'</div>'
+					+'<div class="content">'
+					+highlight(getSnippet(stripHtml(data.responseData.results[i].content),keyword),keyword)
+					+'</div>'
+					+'<div class="hidden-full-text">'
+					+'<div class="clear">'
+					+'<div class="is-offtopic"> off-topic'
+					+'<div class="hidden-rank">'
+					+data.responseData.results[i].url
+					+'</div>'
+					+'</div>'
+					+'<div class="is-relevant"> Is relevant'
+					+'<div class="hidden-rank">'
+					+data.responseData.results[i].url
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'<div id="frameToBeLoaded" style="width: 100%; height: 90%;margin-top: 10px;">'
+					+data.responseData.results[i].url
+					+'</div>'
+					//+highlight(stripHtml(data.responseData.results[i].content),keyword)
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>'
+					+'</div>';
+				$("#static_box").append(st);
+			}
+			st='<div class="col-sm-12">';
+			if (google_page!=0){
+				st+='<div id="google-pre-button" class="google-next-button">Pre</div>';
+			}
+			st+='<div id="google-next-button" class="google-next-button">Next</div>';
+			st+='</div>';
+			$("#static_box").append(st);
+			$("#google-pre-button").click(function(){
+				google_page-=1;
+				getGoogleResult(query);
+			});
+			$("#google-next-button").click(function(){
+				google_page+=1;
+				getGoogleResult(query);
+			});
+			
+			// Add user interaction detector.
+			$("#static_box").find('.doc').each(function(){
+				$(this).mouseenter(function(){
+					//addToInteractiveBox('Static Doc Hovered',$(this).find('.title').text());			
+				});
+				$(this).click(function() {
+					addToInteractiveBox("Static Doc Clicked", $(this).find('.hidden-rank').first().text());
+					$(".jie-overlay-scene").empty();
+					var st=$(this).find('.hidden-full-text').html();
+					$(".jie-overlay-scene").append(st);
+					$(".jie-overlay-scene").find('#frameToBeLoaded').each(function(){
+						st='<iframe src='+$(this).text()+' style="height:100%; width:100%; margin-top:10px;"/>'
+						$(this).empty();
+						$(this).append(st);
+					});
+					updateOverlay("Static Doc Reading End", $(this).find('.hidden-rank').first().text());
+					
+					//Add relevant function
+					$(".jie-overlay-scene").find('.is-relevant').click(function(event) {
+						addToInteractiveBox('Static Relevant Button Clicked',$(this).find('.hidden-rank').text());
+						left_relevant.push($(this).find('.hidden-rank').text());
+						deleteItemInArray(left_offtopic,$(this).find('.hidden-rank').text());
+						$(this).css('background-color', '#45B6B0');
+						$(this).parent().find('.is-offtopic').css('background-color', '#ABB7B7');
+						refreshRelevantButtonColor();
+						event.stopPropagation();
+					});
+					$(".jie-overlay-scene").find('.is-relevant').mouseenter(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#A2DED0');
+							$(this).css('cursor', 'pointer');
+						}
+					});
+					$(".jie-overlay-scene").find('.is-relevant').mouseout(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#ABB7B7');	
+						}
+						$(this).css('cursor', 'auto');
+					});
+					
+					//Add offtopic function
+					$(".jie-overlay-scene").find('.is-offtopic').click(function(event) {
+						addToInteractiveBox('Static Off-topic Button Clicked',$(this).find('.hidden-rank').text());
+						left_offtopic.push($(this).find('.hidden-rank').text());
+						deleteItemInArray(left_relevant,$(this).find('.hidden-rank').text());
+						$(this).css('background-color', '#45B6B0');
+						$(this).parent().find('.is-relevant').css('background-color', '#ABB7B7');
+						refreshRelevantButtonColor();
+						event.stopPropagation();
+					});
+					$(".jie-overlay-scene").find('.is-offtopic').mouseenter(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#A2DED0');
+							$(this).css('cursor', 'pointer');
+						}
+					});
+					$(".jie-overlay-scene").find('.is-offtopic').mouseout(function(event) {
+						if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+							$(this).css('background-color', '#ABB7B7');	
+						}
+						$(this).css('cursor', 'auto');
+					});
+					$(".jie-overlay").trigger('jie_overlay_show');
+				});
+				
+				// Is relevant button, click and hover change color.
+				$(this).find('.is-relevant').click(function(event) {
+					left_relevant.push($(this).find('.hidden-rank').text());
+					deleteItemInArray(left_offtopic,$(this).find('.hidden-rank').text());
+					addToInteractiveBox('Static Relevant Button Clicked',$(this).find('.hidden-rank').text());
+					$(this).css('background-color', '#45B6B0');
+					refreshRelevantButtonColor();
+					event.stopPropagation();
+				});
+				$(this).find('.is-relevant').mouseenter(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#A2DED0');
+						$(this).css('cursor', 'pointer');
+					}
+				});
+				$(this).find('.is-relevant').mouseout(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#ABB7B7');	
+					}
+					$(this).css('cursor', 'auto');
+				});
+				
+				// Off topic button, click and hover change color.
+				$(this).find('.is-offtopic').click(function(event) {
+					left_offtopic.push($(this).find('.hidden-rank').text());
+					deleteItemInArray(left_relevant,$(this).find('.hidden-rank').text());
+					addToInteractiveBox('Static Off-topic Button Clicked',$(this).find('.hidden-rank').text());
+					$(this).css('background-color', '#45B6B0');
+					refreshRelevantButtonColor();
+					event.stopPropagation();
+				});
+				$(this).find('.is-offtopic').mouseenter(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#A2DED0');
+						$(this).css('cursor', 'pointer');
+					}
+				});
+				$(this).find('.is-offtopic').mouseout(function(event) {
+					if ($(this).css('background-color')!= 'rgb(69, 182, 176)'){
+						$(this).css('background-color', '#ABB7B7');	
+					}
+					$(this).css('cursor', 'auto');
+				});
+			});
+		  }
+		});
+	}
+	</script>
+	<img class='cache-img' src='img/state_pre'/> 
+	<div id="preloader">
+		<div id="status">&nbsp;</div>
+	</div>
+
+	<!-- TOPNAV -->
+
+	<div class="row">
+		<div class="col-sm-3">
+			<ul
+				class="nav navbar-nav navbar-left list-unstyled list-inline text-amber date-list">
+				<li><i class="fontello-th text-amber"></i></li>
+				<li id="Date"></li>
+			</ul>
+			<ul
+				class="nav navbar-nav navbar-left list-unstyled list-inline text-amber date-list">
+				<li><i class="fontello-stopwatch text-amber"></i></li>
+				<li id="hours"></li>
+				<li class="point">:</li>
+				<li id="min"></li>
+				<li class="point">:</li>
+				<li id="sec"></li>
+			</ul>
+
+
+		</div>
+
+
+	</div>
+	<!-- END OF TOPNAV -->
+	<!-- Comtainer -->
+	<div class="container-fluid paper-wrap bevel tlbr">
+		<div id="paper-top">
+			<div class="row">
+				<div class="col-sm-3 no-pad">
+
+					<a class="navbar-brand logo-text" href="#">Dumpling</a>
+
+					<ul class="list-unstyled list-inline noft-btn">
+						<li data-toggle="tooltip" data-placement="bottom" title="Profile"><i
+							class=" icon-user"></i></li>
+
+						<li data-toggle="tooltip" data-placement="bottom" title="Log Out">
+							<a href="#" class="text-white"><i
+								class="icon-upload"></i>
+						</a></li>
+
+					</ul>
+				</div>
+
+				<div class="col-sm-6 no-pad">
+					<ul style="margin-top: 8px;"
+						class="nav navbar-nav navbar-left list-unstyled list-inline text-gray date-list news-list">
+						<!-- <li><i class="fontello-doc-text text-gray"></i>
+                        </li> -->
+						<li></li>
+					</ul>
+
+				</div>
+				
+
+				<div class="col-sm-3 no-pad">
+					<!-- menu right -->
+					<div class="navbar-right">
+						
+					</div>
+				</div>
+				<!-- end of menu right -->
+			</div>
+		</div>
+		<!-- SIDE MENU -->
+		<div class="wrap-sidebar-content">
+			<div id="skin-select">
+				<a id="toggle"> <span class="fa icon-menu"></span> </a>
+
+				<div class="skin-part">
+					<div id="tree-wrap">
+						<div class="side-bar">
+							<ul id="menu-showhide" class="topnav">
+								<li class="devider-title">
+									<h3>
+										<span>Dumpling Menu</span>
+									</h3></li>
+								<li><a
+									style="border-left: 4px solid #5F9BDB; padding: 0 0 0 16px;"
+									class="tooltip-tip" href="index_2.html" title="Dashboard"> <i
+										class="fontello-desktop-1"></i> <span>Search Engine</span> </a></li>
+
+
+
+
+								<li class="devider-horizontal"></li>
+
+
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- #/skin-select -->
+			<!-- END OF SIDE MENU -->
+
+			<!-- Breadcrumb -->
+			<div class="sub-board">
+				<span class="header-icon"><i class="fontello-home"></i> </span>
+				<ol class="breadcrumb newcrumb ng-scope">
+					<li><a href="index_2.html"> <span> </span>Search Engine</a></li>
+
+				</ol>
+
+
+				<div class="dark" style="visibility: visible;">
+					<div class="navbar-form navbar-left" role="search">
+						<div class="form-group" style="width:40px;">
+	                         <select class="form-control" style="margin-left:-120px;width:120px;" id='dataset_option'>
+	                         		<option>NYU news</option>
+	                                  <option>NYU escort</option>
+	                                  
+	                         </select>
+                        </div>
+                        <script>
+                        	$('#dataset_option').change(function(){
+                        		window.location.replace("index_2_escort.html");
+                        	});
+                        </script>	
+						<div class="form-group">
+							<input type="text" class="form-control search rounded id_search" id="search_input"
+								placeholder="Search" />
+						<button type="submit" class="btn btn-primary" id="search_submit">Submit</button>
+						<button  class="btn btn-primary" id="clear_history">Clear History</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of Breadcrumb -->
+
+
+		<!-- CONTENT -->
+		<div class="wrap-fluid" id="paper-bg">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="col-sm-12" id='history_box'></div>
+							</div>
+						</div>
+						<div class="col-sm-5">
+							<div class="result1">
+								<div class="row">
+									<div class="col-sm-9" style='padding-bottom: 0px;'>
+										<h2>Static Retrieval</h2>
+									</div>
+									<div class="col-sm-3" style='padding: 0px;top: 20px;left: -30px;'>
+										<div class="form-group">
+	                                        <select class="form-control" id='staticOption'>
+	                                        	<option>Lucene</option>
+	                                        	<option>Google</option>
+	                                        </select>
+                                    	</div>
+                                    </div>
+								</div>
+								
+							
+								<div class="row" id='static_box'>
+								<!-- 
+									<div class="col-sm-12">
+										<div class="box">
+											<div class="box-body">
+												<div class="news-widget">
+													<h2>
+														<span class="bg-green">Feb 11, 2011</span>
+														<div class='is-relevant'> Is relevant</div>
+													</h2>
+													<div class="row">
+														<div class="col-sm-11">
+															<div class="title">Related Posts - Local Phone Sex
+																Operators in Monterrey</div>
+															<div class="content">
+																Natural Boobs In <span class="highlight">Shanghai</span>;
+																<span class="highlight">cougars</span> Lingerie In
+																Kingston; ... Hot Phone Sex For Less Adult <span
+																	class="highlight">phonesex</span> & Discreet Intimate
+																Conversation. Nov 1, 2012.
+															</div>
+														</div>
+														<div class="col-sm-1">
+															<div class="rank">#3</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								 -->
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-5">
+							<div class="result1">
+								<h2>Dynamic Retrieval</h2>
+								<div class="row" id="dynamic_box">
+
+									
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="box">
+										<div class="box-header">
+											<!-- tools box -->
+											<div class="media direction">
+												<span class="pull-left"> <i
+													class="media-object fontello-chart-alt-outline"></i> </span>
+												<div class="media-body">
+													<h5 style="margin: -2px 0 0; padding-bottom: 2px;"
+														class="media-heading">Interaction Log</h5>
+													<span class="pull-right"></span>
+												</div>
+											</div>
+										</div>
+										<div class="box-body no-padding">
+
+											<ul class="list-unstyled newsticker interaction-bg" >
+												<div id="interaction_box">
+												<!-- 
+												<li class="bg-red">
+													<ul class="list-unstyled jalur-nest">
+														<li>New Query Sent</li>
+														<li><i class="fontello-chronograph"></i>&nbsp;&nbsp;Keywords:
+															shanghai cougars phonesex</li>
+													</ul>
+												</li>
+												 -->
+												</div>
+											</ul>
+											<br> <br>
+										</div>
+										<!-- /.box-body -->
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-sm-12">
+									<a href='http://pixelanimators.com/dumpling/index.php?r=index/interactionLogExport'>
+									<div class='interaction-log-export-button'>
+										export
+									</div>
+									</a>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+				<!-- #/paper bg -->
+			</div>
+			<!-- ./wrap-sidebar-content -->
+
+			<!-- / END OF CONTENT -->
+
+			<!-- FOOTER -->
+			<div id="footer">
+				<div class="devider-footer-left"></div>
+				<div class="time">
+					<p id="spanDate"></p>
+					<p id="clock"></p>
+				</div>
+				<div class="copyright">
+					Copyright &copy; 2014 Georgetown <i
+						class="fontello-heart-filled text-red"></i>
+				</div>
+				<div class="devider-footer"></div>
+				<ul>
+					<li><i class="fa fa-facebook-square"></i></li>
+					<li><i class="fa fa-twitter-square"></i></li>
+					<li><i class="fa fa-instagram"></i></li>
+				</ul>
+			</div>
+			<!-- / FOOTER -->
+		</div>
+		<!-- Container -->
+
+		<!-- 
+    ================================================== -->
+		<!-- Main jQuery Plugins -->
+
+		<script type='text/javascript' src='js/date.js'></script>
+		<script type='text/javascript'
+			src='js/slimscroll/jquery.slimscroll.js'></script>
+		<script type='text/javascript' src='js/jquery.nicescroll.min.js'></script>
+		<script type='text/javascript' src='js/sliding-menu.js'></script>
+		<script type='text/javascript'
+			src='js/scriptbreaker-multiple-accordion-1.js'></script>
+		<script type='text/javascript' src='js/tip/jquery.tooltipster.min.js'></script>
+
+		<script type='text/javascript' src='js/vegas/jquery.vegas.js'></script>
+		<script type='text/javascript' src='js/image-background.js'></script>
+		<script type="text/javascript" src="js/jquery.tabSlideOut.v1.3.js"></script>
+		<script type="text/javascript" src="js/bg-changer.js"></script>
+		<script type='text/javascript' src="js/button/ladda/spin.min.js"></script>
+	    <script type='text/javascript' src="js/button/ladda/ladda.min.js"></script>
+	    <script type='text/javascript' src='js/button/progressbutton.jquery.js'></script>
+
+		<script type='text/javascript'
+			src="js/number-progress-bar/jquery.velocity.min.js"></script>
+		<script type='text/javascript'
+			src="js/number-progress-bar/number-pb.js"></script>
+		<script src="js/loader/loader.js" type="text/javascript"></script>
+		<script src="js/loader/demo.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/skycons/skycons.js"></script>
+
+
+		<!-- TAB SLIDER -->
+</body>
+
+</html>
