@@ -1,0 +1,44 @@
+<div class="col-sm-8 user-state-box" id="userStateController" ng-controller="userStateController">
+	<div class='search-transition-pre' ng-repeat-start="state in $root.stateHistory" ng-show="!$first">
+		<img src='img/state_pre.png' />
+	</div>
+	<div class='search-transition' ng-show="!$first">
+		{{state.transition}}
+	</div>
+	<div class="search-transition-pre" ng-show="!$first">
+		<img src="img/state_suc.png">
+	</div>
+	<div class="one-query"  ng-repeat-end>
+		{{state.query}}
+	</div>
+</div>
+<div class="col-sm-2">
+	<div class="box">
+		<!-- /.box-header -->
+		<div class="box-body" style="padding: 10px 20px;">
+			<div class="news-widget" style="padding: 0px;">
+				<h2>
+					<span class="bg-blue">Explicit Feedback</span>
+				</h2>
+				<div class="current-feedback-box">N/A</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		<!-- /.box-body -->
+	</div>
+</div>
+<div class="col-sm-2">
+	<div class="box">
+		<!-- /.box-header -->
+		<div class="box-body" style="padding: 10px 20px;">
+			<div class="news-widget" style="padding: 0px;">
+				<h2>
+					<span class="bg-blue">Implicit Feedback</span>
+				</h2>
+				<div class="current-feedback-box">N/A</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		<!-- /.box-body -->
+	</div>
+</div>

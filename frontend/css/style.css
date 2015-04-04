@@ -1,3 +1,11 @@
+<script type='text/javascript' src="assets/jie/jie.js"></script>
+<div class="jie-overlay" ng-controller='overlayController'>
+	<div class="jie-overlay-scene">
+	<div class="jie-overlay-esc">X</div>
+		{{overlayContent.part1}}
+		{{overlayContent.part2}}
+	</div>
+</div>
 /*------------------------------------------------------------------
 [Page Style Stylesheet]
 

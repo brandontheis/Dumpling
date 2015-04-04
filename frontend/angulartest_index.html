@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  </head>
+
+<style>
+.red{
+background:red;}
+</style>
+  <body ng-app="simpleeApp">
+
+    <div class="container" ng-class="{'red':red}" ng-controller="petsController">
+		<div class="row">
+		<div class="col-md-3">
+		   <ul class="nav">
+				<li><a href="#"> pets </a></li>
+				<li><a href="#cars"> cars </a></li>
+			</ul>
+		</div>
+		<div class="col-md-9">
+		  	<div ng-view></div>
+		</div>
+
+		</div>
+
+    </div><!-- /.container -->
+
+
+<script>
+
+var sampleApp = angular.module('simpleeApp', []);
+
+	sampleApp.factory('simpleFactory',function(){
+		var factory = {};
+		var pets=[];
+		factory.getPets = function (){
+			pets=[{name:'wolffff',click:0},{name:'turtle',click:0}];
+			return pets;
+		}
+		factory.clickPet = function (pet){
+			for (var i=0; pets.length; i++) {
+				if (pets[i].name==pet.name){
+					pets[i].click++;
+				}
+			}
+			return pets;
+		}
+		
+		return factory;
+	});
+	sampleApp.config(function($routeProvider) {
+		$routeProvider.when('/', {
+			templateUrl : 'pets.html',
+			controller : 'petsController'
+		}).when('/cars', {
+			templateUrl : 'cars.html',
+			controller : 'carsController'
+		}).otherwise({
+			redirectTo : '/'
+		});
+	} );
+
+	sampleApp.controller('petsController', function($scope, simpleFactory) {
+		$scope.red='checked';
+		$scope.pets=simpleFactory.getPets();
+		$scope.petClickChange=function(newVal){
+			console.log("haha"+newVal);
+		};
+		$scope.$watch('pets',function ( newValue,oldValue){
+			for (var i=0; i<oldValue.length; i++){
+				if (oldValue[i].click!=newValue[i].click){
+					console.log(newValue[i].name,newValue[i].click);
+				}
+			}
+			
+		},true);
+	});
+	sampleApp.controller('carsController', function($scope) {
+		$scope.cars=[{name:'volve'},{name:'BMW'}];
+	});
+</script>
+
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+<!-- overlay -->
 .jie-overlay {
 	position: fixed;
 	top: 0;
@@ -10,8 +11,8 @@
 }
 .jie-overlay-scene {
 	margin:auto;
-	width:600px;
-	height:338px;
+	width:90%;
+	height:90%;
 }
 
 .jie-buttom-div{
@@ -20,3 +21,12 @@
 	z-index:1000;
 	background:black;	
 }
+
+.jie-overlay-esc{
+	cursor:pointer;
+	z-index:1000;
+	float:right;
+	margin-left:100px;
+}
+<!-- overlay end -->
+

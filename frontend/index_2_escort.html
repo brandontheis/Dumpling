@@ -3,21 +3,11 @@
 
 <head>
 <meta charset="utf-8">
-<!--   <meta content="IE=edge" http-equiv="X-UA-Compatible"> -->
 <meta content="width=device-width, initial-scale=1" name="viewport">
-<meta content="" name="description">
-<meta content="" name="author">
 <link href="ico/favicon.ico" rel="shortcut icon">
-
 <title>Dumpling Search Engine </title>
-
-<!-- Bootstrap core CSS -->
+<!-- css loader -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<!-- Bootstrap theme -->
-<!--  <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
-
-<!-- Custom styles for this template -->
-
 <link rel="stylesheet" href="assets/jie/jie.css">
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="css/theme.css">
@@ -31,181 +21,20 @@
 <link rel="stylesheet" type="text/css" href="js/vegas/jquery.vegas.css" />
 <link rel="stylesheet" type="text/css"
 	href="js/number-progress-bar/number-pb.css">
-<!-- pace loader -->
+<link rel="stylesheet" href="css/dumpling.css">
+<!-- js loader -->
 <script src="js/pace/pace.js"></script>
 <link href="js/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" />
 <script type='text/javascript' src="js/jquery.js"></script>
 <script type='text/javascript' src='js/bootstrap.js'></script>
 <script type='text/javascript' src="assets/jie/jie.js"></script>
 <script src="js/flot/jquery.flot.min.js" type="text/javascript"></script>
-	     <script src="js/flot/jquery.flot.time.min.js" type="text/javascript"></script>
-<style>
-.cache-img{
-	display:none;
-}
-#paper-bg {
-	min-height: 900px;
-}
-.news-widget{
-	color:black;
-}
-.news-widget .title {
-	font-size: 15px;
-}
-.news-widget .content{
-	padding-left: 30px;
-font-size: 10px;
-font-weight: 500;
-}
-
-.news-widget .highlight {
-	font-weight: 700;
-}
-
-.interaction-bg {
-	height: 300px;
-	overflow:scroll;
-   	white-space: -moz-pre-wrap; /* Firefox */    
-   	white-space: -pre-wrap;     /* Opera <7 */   
-   	white-space: -o-pre-wrap;   /* Opera 7 */    
-   	word-wrap: break-word;      /* IE */
-}
-
-.bg-red {
-	border-bottom: white solid;
-}
-
-.dark input[type=text] {
-	color: black;
-}
-
-.navbar-form .form-control {
-	width: 600px;
-}
-
-#history_box {
-	height: 100px;
-	border: solid 1px;
-	overflow: scroll;
-}
-
-#history_box .one-query {
-	float: left;
-	padding: 5px 20px;
-	margin: 10px 0px;
-	background-color: #45B6B0;
-	border-radius: 5px;
-	color: white;
-}
-#history_box .search-state {
-	float: left;
-	padding: 5px 10px;
-	margin: 10px 0px;
-	border-radius: 5px;
-	color: #45B6B0;
-	border: solid 1px;
-}
-#history_box .search-state-pre {
-	float: left;
-	margin: 10px 0px;
-	color: #45B6B0;
-}
-
-.result1 {
-	border: solid 1px;
-}
-
-.hidden-full-text {
-	display: none;
-}
-
-.highlight {
-	color: #D24D57;
-	font-weight: 800;
-}
-.author{
-	color:black;
-float: left;
-font-size: 15px;
-margin: 10px 0px;
-}
-.is-relevant {
-	font-size: 15px;
-	float: right;
-	margin: 13px 0px 0px 0px;
-	color: white;
-	background: #ABB7B7;
-	padding: 3px 15px;
-}
-.is-offtopic{
-	font-size: 15px;
-	float: right;
-	margin: 13px 0px 0px 0px;
-	color: white;
-	background: #ABB7B7;
-	padding: 3px 15px;
-	margin-left:2px;
-}
-.clear{
-	float:left;
-	clear:both;
-	width:100%;
-}
-.hidden-rank{
-	display:none;
-}
-
-.google-next-button {
-	padding: 5px 10px;
-	margin: 10px 0px;
-	border-radius: 5px;
-	color: #45B6B0;
-	border: solid 1px;
-	width: 50px;
-	margin-left: 10px;
-	float: left;
-}
-.google-next-button:hover { 
-	color: white;
-    background-color: #45B6B0;
-    cursor: pointer;
-}
-.interaction-log-export-button{
-	padding: 5px 10px;
-	margin: 10px 0px;
-	border-radius: 5px;
-	color: #45B6B0;
-	border: solid 1px;
-	width: 100%;
-	margin: 0px;
-	float: left;
-	text-align: center;
-}
-.interaction-log-export-button:hover { 
-	color: white;
-    background-color: #45B6B0;
-    cursor: pointer;
-}
-</style>
+<script src="js/flot/jquery.flot.time.min.js" type="text/javascript"></script>
 </head>
 
 <body role="document">
 
 <style>
-.jie-overlay {
-	z-index: 1001;
-}
-.jie-overlay-scene {
-	z-index: 1002;
-	background-color:white;
-	padding:15px 30px;
-	text-align: left;
-	height:600px;
-	width:900px;
-	overflow:scroll;
-	color:black;
-	font-size:15px;
-}
 
 </style>
 <script>
